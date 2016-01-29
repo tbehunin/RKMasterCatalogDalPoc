@@ -44,7 +44,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dapper\Brand.cs" />
+    <Compile Include="Dapper\DapperRepo.cs" />
     <Compile Include="Dapper\Product.cs" />
+    <Compile Include="IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
