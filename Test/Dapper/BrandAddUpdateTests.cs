@@ -58,12 +58,15 @@ namespace Test.Dapper
             Brand.BrandName = newValue;
 
             Repo.UpdateBrand(Brand);
+            var brand = Repo.GetBrandById(Brand.BrandId);
+            Assert.AreEqual(brand.BrandName, newValue);
         }
 
         [ClassCleanup]
-        public void TearDown()
+        public static void TearDown()
         {
             Repo.DeleteBrand(Brand.BrandId);
+            Assert.IsNull(Repo.GetBrandById(Brand.BrandId));
         }
     }
 }

@@ -53,6 +53,7 @@
     <Folder Include="Ef\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Dapper\SpikeAnalysis.md" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

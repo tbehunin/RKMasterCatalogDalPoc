@@ -60,7 +60,7 @@ namespace Dal.Dapper
             {
                 conn.Open();
 
-                conn.Execute(deleteStmt, brandId);
+                conn.Execute(deleteStmt, new { brandId });
 
                 conn.Close();
             }
@@ -73,7 +73,17 @@ namespace Dal.Dapper
 
         public Brand GetBrandById(int brandId)
         {
-            throw new NotImplementedException();
+            Brand brand = null;
+            using (var conn = new SqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                brand = conn.Query<Brand>("SELECT * FROM Products.Brands WHERE BrandId = @BrandId",
+                    new { BrandId = brandId }).FirstOrDefault();
+
+                conn.Close();
+            }
+            return brand;
         }
 
         public int AddProduct(Product product)
