@@ -40,13 +40,27 @@ namespace Dal.Dapper
             var updateStmt = @"UPDATE Products.Brands
                         SET BrandName = @BrandName, BrandCode = @BrandCode, BrandDescription = @BrandDescription, BrandDisplayName = @BrandDisplayName, 
                             InCommBrandIdentifier = @InCommBrandIdentifier, BrandImageUrl = @BrandImageUrl, IsActive = @IsActive, CreatedOn = @CreatedOn, CreatedBy = @CreatedBy, 
-                            ModifiedOn = @ModifiedOn, ModifiedBy = @ModifiedBy)
+                            ModifiedOn = @ModifiedOn, ModifiedBy = @ModifiedBy
                         WHERE BrandId = @BrandId";
             using (var conn = new SqlConnection(_connectionString))
             {
                 conn.Open();
 
                 conn.Execute(updateStmt, brand);
+
+                conn.Close();
+            }
+        }
+
+
+        public void DeleteBrand(int brandId)
+        {
+            var deleteStmt = @"DELETE Products.Brands WHERE BrandId = @BrandId";
+            using (var conn = new SqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                conn.Execute(deleteStmt, brandId);
 
                 conn.Close();
             }
@@ -68,6 +82,11 @@ namespace Dal.Dapper
         }
 
         public void UpdateProduct(Product product)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteProduct(int brandId)
         {
             throw new NotImplementedException();
         }

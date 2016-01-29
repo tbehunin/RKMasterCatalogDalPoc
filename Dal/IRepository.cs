@@ -11,11 +11,13 @@ namespace Dal
     {
         int AddBrand(Brand brand);
         void UpdateBrand(Brand brand);
+        void DeleteBrand(int brandId);
         IList<Brand> GetBrands();
         Brand GetBrandById(int brandId);
 
         int AddProduct(Product product);
         void UpdateProduct(Product product);
+        void DeleteProduct(int brandId);
         IList<Product> GetProducts();
         Brand GetProductById(int productId);
     }

@@ -13,16 +13,19 @@ namespace Test.Dapper
     [TestClass]
     public class BrandAddUpdateTests
     {
+        public static DapperRepo Repo;
+        public static Brand Brand;
+
         public BrandAddUpdateTests()
         {
         }
 
-        [TestMethod]
-        public void ShouldInsertBrandSuccessfully()
+        [ClassInitialize]
+        public static void Init(TestContext context)
         {
-            var repo = new DapperRepo(ConfigurationManager.ConnectionStrings["GDBConnStr"].ConnectionString);
+            Repo = new DapperRepo(ConfigurationManager.ConnectionStrings["GDBConnStr"].ConnectionString);
             var guid = Guid.NewGuid().ToString();
-            var brand = new Brand
+            Brand = new Brand
             {
                 BrandName = "Name " + guid,
                 BrandCode = "Code " + guid,
@@ -36,8 +39,31 @@ namespace Test.Dapper
                 ModifiedOn = DateTime.Now,
                 ModifiedBy = "ModifiedByFoo"
             };
-            var id = repo.AddBrand(brand);
-            Assert.IsTrue(id > 0);
+            Brand.BrandId = Repo.AddBrand(Brand);
+        }
+
+        [TestMethod]
+        public void ShouldInsertBrandSuccessfully()
+        {
+            Assert.IsTrue(Brand.BrandId > 0);
+        }
+
+        [TestMethod]
+        public void ShouldUpdateBrandNameSuccessfully()
+        {
+            var oldValue = Brand.BrandName;
+            var newValue = Guid.NewGuid().ToString();
+            Assert.AreNotEqual(oldValue, newValue);
+
+            Brand.BrandName = newValue;
+
+            Repo.UpdateBrand(Brand);
+        }
+
+        [ClassCleanup]
+        public void TearDown()
+        {
+            Repo.DeleteBrand(Brand.BrandId);
         }
     }
 }
