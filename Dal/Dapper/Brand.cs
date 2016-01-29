@@ -15,7 +15,7 @@ namespace Dal.Dapper
         public string BrandDisplayName { get; set; }
         public string InCommBrandIdentifier { get; set; }
         public string BrandImageUrl { get; set; }
-        public string IsActive { get; set; }
+        public bool IsActive { get; set; }
         public DateTime CreatedOn { get; set; }
         public string CreatedBy { get; set; }
         public DateTime ModifiedOn { get; set; }
