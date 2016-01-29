@@ -21,14 +21,15 @@ namespace Test.Dapper
         public void ShouldInsertBrandSuccessfully()
         {
             var repo = new DapperRepo(ConfigurationManager.ConnectionStrings["GDBConnStr"].ConnectionString);
+            var guid = Guid.NewGuid().ToString();
             var brand = new Brand
             {
-                BrandName = "BrandNameFoo",
-                BrandCode = "BrandCodeFoo",
-                BrandDescription = "BrandDescriptionFoo",
-                BrandDisplayName = "BrandDisplayNameFoo",
-                InCommBrandIdentifier = "InCommBrandIdentifierFoo",
-                BrandImageUrl = "BrandImageUrlFoo",
+                BrandName = "Name " + guid,
+                BrandCode = "Code " + guid,
+                BrandDescription = "Descr " + guid,
+                BrandDisplayName = "Display " + guid,
+                InCommBrandIdentifier = "Brand id " + guid,
+                BrandImageUrl = "ImageUrl " + guid,
                 IsActive = true,
                 CreatedOn = DateTime.Now,
                 CreatedBy = "CreatedByFoo",

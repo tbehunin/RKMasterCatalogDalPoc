@@ -23,16 +23,16 @@ namespace Dal.Dapper
             var insertStmt = @"INSERT Products.Brands (BrandName, BrandCode, BrandDescription, BrandDisplayName, InCommBrandIdentifier, BrandImageUrl,
                 IsActive, CreatedOn, CreatedBy, ModifiedOn, ModifiedBy) VALUES (@BrandName, @BrandCode, @BrandDescription, @BrandDisplayName,
                 @InCommBrandIdentifier, @BrandImageUrl, @IsActive, @CreatedOn, @CreatedBy, @ModifiedOn, @ModifiedBy); SELECT scope_identity();";
-            var id = (int?)null;
+            object id = null;
             using (var conn = new SqlConnection(_connectionString))
             {
                 conn.Open();
                 
-                id = (int?)conn.ExecuteScalar(insertStmt, brand);
+                id = conn.ExecuteScalar(insertStmt, brand);
 
                 conn.Close();
             }
-            return id.HasValue ? id.Value : 0;
+            return id != null ? Convert.ToInt32(id) : 0;
         }
 
         public void UpdateBrand(Brand brand)
