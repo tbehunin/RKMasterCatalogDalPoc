@@ -18,7 +18,7 @@ namespace Dal
         int AddProduct(Product product);
         void UpdateProduct(Product product);
         void DeleteProduct(int brandId);
-        IList<Product> GetProducts();
+        IList<Product> GetProductsByBrand(int brandId);
         Brand GetProductById(int productId);
     }
 }

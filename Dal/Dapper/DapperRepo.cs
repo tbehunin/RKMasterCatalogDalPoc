@@ -101,7 +101,7 @@ namespace Dal.Dapper
             throw new NotImplementedException();
         }
 
-        public IList<Product> GetProducts()
+        public IList<Product> GetProductsByBrand(int brandId)
         {
             throw new NotImplementedException();
         }
