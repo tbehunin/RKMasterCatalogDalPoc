@@ -20,5 +20,6 @@ namespace Dal.Dapper
         public string CreatedBy { get; set; }
         public DateTime ModifiedOn { get; set; }
         public string ModifiedBy { get; set; }
+        public IList<Product> Products { get; set; }
     }
 }
