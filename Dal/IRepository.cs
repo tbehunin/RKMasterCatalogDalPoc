@@ -21,4 +21,11 @@ namespace Dal
         IList<Product> GetProductsByBrand(int brandId);
         Brand GetProductById(int productId);
     }
+
+    public interface IDocStoreRepository
+    {
+        string SaveBrand(Brand brand);
+        Brand GetBrand(string id);
+        IList<Brand> GetBrands();
+    }
 }

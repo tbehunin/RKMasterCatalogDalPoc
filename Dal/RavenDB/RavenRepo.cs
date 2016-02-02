@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using Raven.Client.Document;
 
 namespace Dal.RavenDB
 {
-    public class RavenRepo : IRepository
+    public class RavenRepo : IDocStoreRepository
     {
         private DocumentStore _documentStore;
+        private MapperConfiguration _mapCfg;
 
-        public RavenRepo(string documentStoreUrl)
+        public RavenRepo(string documentStoreUrl, MapperConfiguration mapCfg)
         {
+            _mapCfg = mapCfg;
             _documentStore = new DocumentStore
             {
                 Url = documentStoreUrl
@@ -20,57 +23,37 @@ namespace Dal.RavenDB
             _documentStore.Initialize();
         }
 
-        public int AddBrand(Brand brand)
+        public string SaveBrand(Brand brand)
         {
             using (var session = _documentStore.OpenSession())
             {
+                if (string.IsNullOrEmpty(brand.Id))
+                {
+                    session.Store(brand);
+                }
+                else
+                {
+                    // Get the document and map property values
+                    var mapper = _mapCfg.CreateMapper();
+                    mapper.Map<Brand, Brand>(GetBrand(brand.Id), brand);
+                }
                 session.Store(brand);
                 session.SaveChanges();
             }
-            return 0;
+            return brand.Id;
         }
 
-        public void UpdateBrand(Brand brand)
+        public Brand GetBrand(string id)
         {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteBrand(int brandId)
-        {
-            throw new NotImplementedException();
+            Brand brand = null;
+            using (var session = _documentStore.OpenSession())
+            {
+                brand = session.Load<Brand>(id);
+            }
+            return brand;
         }
 
         public IList<Brand> GetBrands()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Brand GetBrandById(int brandId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int AddProduct(Product product)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateProduct(Product product)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteProduct(int brandId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IList<Product> GetProductsByBrand(int brandId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Brand GetProductById(int productId)
         {
             throw new NotImplementedException();
         }

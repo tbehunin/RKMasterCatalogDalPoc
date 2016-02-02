@@ -2,6 +2,8 @@
 using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using AutoMapper;
+using Dal;
 
 namespace Test.RavenDB
 {
@@ -11,11 +13,11 @@ namespace Test.RavenDB
     [TestClass]
     public class RavenRepoTests
     {
+        private MapperConfiguration _mapCfg;
+
         public RavenRepoTests()
         {
-            //
-            // TODO: Add constructor logic here
-            //
+            _mapCfg = new MapperConfiguration(cfg => cfg.CreateMap<Brand, Brand>());
         }
 
         private TestContext testContextInstance;
@@ -59,7 +61,7 @@ namespace Test.RavenDB
         #endregion
 
         [TestMethod]
-        public void TestMethod1()
+        public void ShouldAddANewBrandDocument()
         {
             //
             // TODO: Add test logic here
