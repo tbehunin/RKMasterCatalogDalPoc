@@ -43,14 +43,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dapper\Brand.cs" />
+    <Compile Include="Brand.cs" />
     <Compile Include="Dapper\DapperRepo.cs" />
-    <Compile Include="Dapper\Product.cs" />
+    <Compile Include="Product.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Ef\" />
+    <Folder Include="RavenDB\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Dapper\SpikeAnalysis.md" />

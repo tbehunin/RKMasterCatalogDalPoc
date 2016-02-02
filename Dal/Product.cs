@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dal.Dapper
+namespace Dal
 {
     public abstract class Product
     {

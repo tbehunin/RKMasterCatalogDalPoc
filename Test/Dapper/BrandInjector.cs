@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Dal;
 using Dal.Dapper;
 
 namespace Test.Dapper
