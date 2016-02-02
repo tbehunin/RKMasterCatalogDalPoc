@@ -3,14 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Raven.Client.Document;
 
 namespace Dal.RavenDB
 {
     public class RavenRepo : IRepository
     {
+        private DocumentStore _documentStore;
+
+        public RavenRepo(string documentStoreUrl)
+        {
+            _documentStore = new DocumentStore
+            {
+                Url = documentStoreUrl
+            };
+            _documentStore.Initialize();
+        }
+
         public int AddBrand(Brand brand)
         {
-            throw new NotImplementedException();
+            using (var session = _documentStore.OpenSession())
+            {
+                session.Store(brand);
+                session.SaveChanges();
+            }
+            return 0;
         }
 
         public void UpdateBrand(Brand brand)
