@@ -18,7 +18,8 @@ namespace Dal.RavenDB
             _mapCfg = mapCfg;
             _documentStore = new DocumentStore
             {
-                Url = documentStoreUrl
+                Url = documentStoreUrl,
+                DefaultDatabase = "ToddTest"
             };
             _documentStore.Initialize();
         }

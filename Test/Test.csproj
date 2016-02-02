@@ -60,6 +60,7 @@
     <Compile Include="Dapper\BrandInjector.cs" />
     <Compile Include="Dapper\GetBrandsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RavenDB\BrandInjector.cs" />
     <Compile Include="RavenDB\RavenRepoTests.cs" />
   </ItemGroup>
   <ItemGroup>

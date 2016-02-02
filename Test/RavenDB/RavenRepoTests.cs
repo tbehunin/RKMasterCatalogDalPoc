@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using AutoMapper;
 using Dal;
+using Dal.RavenDB;
 
 namespace Test.RavenDB
 {
@@ -63,9 +64,27 @@ namespace Test.RavenDB
         [TestMethod]
         public void ShouldAddANewBrandDocument()
         {
-            //
-            // TODO: Add test logic here
-            //
+            var brand = BrandInjector.Inject(_mapCfg);
+            Assert.IsNotNull(brand.Id);
+        }
+
+        [TestMethod]
+        public void ShouldUpdateAnExistingBrandDocument()
+        {
+            // First add a brand document
+            var initialBrand = BrandInjector.Inject(_mapCfg);
+
+            RavenRepo repo = new RavenRepo("http://localhost:8080", _mapCfg);
+            var freshBrand = repo.GetBrand(initialBrand.Id);
+            Assert.AreEqual(initialBrand.Id, freshBrand.Id);
+
+            freshBrand.BrandName = "updated";
+            Assert.AreNotEqual(initialBrand.BrandName, freshBrand.BrandName);
+            repo.SaveBrand(freshBrand);
+
+            var freshFreshBrand = repo.GetBrand(freshBrand.Id);
+            Assert.AreEqual(freshBrand.Id, freshFreshBrand.Id);
+            Assert.AreEqual(freshBrand.BrandName, freshFreshBrand.BrandName);
         }
     }
 }
